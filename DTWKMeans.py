@@ -49,7 +49,6 @@ gene_3  18    100  10   ...    22
 gene_n  45    22   15   ...    60
 """)
 parser.add_argument('-k','--K',dest="optimal_K",type=int,action='store',help="The optimal number of K")
-parser.add_argument('-j','--njobs',dest="n_jobs",type=int,action='store',help="The number of jobs to run in parallel for cross-distance matrix computations. Ignored if the cross-distance matrix cannot be computed using parallelization. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. ")
 parser.add_argument('-o','--output',dest="output_path_dir",action='store')
 parser.add_argument('-p','--prefix',dest="output_file_prefix",action='store')
 args = parser.parse_args()
@@ -68,7 +67,7 @@ gene_expression_matrix /= np.vstack(np.nanstd(gene_expression_matrix, axis=1))
 # soft-DTW-Kmeans
 # UPDATES(FEB19-2021), implant the argv for optimal K
 # seed of 10 for reproducibility 
-dtw_Ymtr = TimeSeriesKMeans(n_clusters=args.optimal_K, metric="softdtw", metric_params={"gamma": .01}, verbose=True,random_state=10,n_jobs=args.n_jobs)
+dtw_Ymtr = TimeSeriesKMeans(n_clusters=args.optimal_K, metric="softdtw", metric_params={"gamma": .01}, verbose=True,random_state=10,n_jobs=-1)
 Ymtr_predict = dtw_Ymtr.fit_predict(gene_expression_matrix)
 print('The Shape of Cluster Centers are {}'.format(dtw_Ymtr.cluster_centers_.shape))
 
@@ -94,15 +93,6 @@ for i,j in collections.Counter(Ymtr_predict).items():
 df_sum['Cluster'] = cluster_list
 df_sum['GeneNum'] = GeneNum_list
 df_sum.to_csv(args.output_file_prefix+"_ClusteringSummary.csv")
-
-# Save the cluster results into individual directory
-os.mkdir(args.output_file_prefix+"DPGP_input")
-os.chdir(args.output_file_prefix+"DPGP_input")
-DTWclusterlist = list(set(df_label['cluster'].tolist()))
-for i in DTWclusterlist:
-    ClusterGenelist = df_label[df_label['cluster'] == i]['gene'].tolist()
-    Cluster_expdf = exp_df.reindex(ClusterGenelist)
-    Cluster_expdf.to_csv('DTW-Cluster{}.txt'.format(i),sep='\t')
 
 
 # Time Set for plotting
