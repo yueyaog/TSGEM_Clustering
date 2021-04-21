@@ -25,3 +25,4 @@ python DTW-perf.py -i Test/test.txt -kmin 2 -kmax 30 -step 2 -o Test_Results/Ste
 ```
 python DTW_argv.py -i Test/test.txt -k 6 -o Test_Results/Step2Clustering -p Test-K6
 ```
+The Example outputs can be found in Auxiliary.
