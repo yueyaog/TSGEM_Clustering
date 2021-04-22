@@ -1,7 +1,7 @@
 # TSGEM_Clustering
 This repository is designed to cluster time-series Gene Expreession Matrix (GEM) based on the gene trajectory pattern.
 ## Motivation
-As most biological processes are dynamic, time-series transcriptome experiments play a pivotal role in understanding and modeling these processes. Using K-Means to profiling the time-course transcriptional response is a common approach for bioinfomaticians. TSGEM_Clustering will optimaize the KMeans performance on sequential time-series data by adapting Dynamic Time Warping Distance Metric. And it will select the optimal number of clusters based on the results from distortion (also known as elbow method),silhouette coefficient, and Calinski harabasz index. 
+As most biological processes are dynamic, time-series transcriptome experiments play a pivotal role in understanding and modeling these processes. Using K-Means to profiling the time-course transcriptional response is a common approach for bioinformaticians. TSGEM_Clustering will optimaize the KMeans performance on sequential time-series data by adapting Dynamic Time Warping Distance Metric(https://arxiv.org/abs/1703.01541). And it will select the optimal number of clusters based on the results from distortion (also known as elbow method),silhouette coefficient, and Calinski harabasz index. 
 ## Installation
 All of TSGEM_Clustering's dependencies can be installed through Anaconda3. To create an Anaconda environment:
 ```
@@ -25,3 +25,4 @@ python DTW-perf.py -i Test/test.txt -kmin 2 -kmax 30 -step 2 -o Test_Results/Ste
 ```
 python DTW_argv.py -i Test/test.txt -k 6 -o Test_Results/Step2Clustering -p Test-K6
 ```
+The Example outputs can be found in Auxiliary.
