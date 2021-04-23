@@ -138,11 +138,11 @@ for n_clusters in K_range:
     plt.tight_layout()
     plt.savefig(args.output_path_prefix+'K{}_clustering.png'.format(n_clusters),dpi=200)
 #Plot the results of Elbow Method, silhouette score, and ch index
-fig, (ax0, ax1, ax2) = plt.subplots(3,figsize=(7, 21))
+fig, (ax0, ax1, ax2) = plt.subplots(3,figsize=(5, 15))
 ax0.plot(K_range, Sum_of_squared_distances, 'bo-')
 ax0.set_xlabel('n_clusters')
 ax0.set_ylabel('Sum of Squared Distances')
-ax0.set_title('The Elbow Method using Distortion for DTW-KMeans Clustering')
+ax0.set_title('Distortion for DTW-KMeans Clustering')
 ax0.grid(False)
 
 ax1.plot(K_range, ch_indexs, 'g.-')

@@ -101,7 +101,7 @@ t = t_label
 t /= np.mean(np.diff(t))
 
 # Plot
-plt.figure(figsize=(8,8))
+plt.figure(figsize=(6,6))
 # The cols and rows of the subplot 
 subplots = int(math.sqrt(args.optimal_K))+1
 for yi in range(args.optimal_K):
@@ -114,8 +114,7 @@ for yi in range(args.optimal_K):
     ax.set_ylabel('Gene expression')
     ax.set_title('Cluster {} ({})'.format(yi + 1,collections.Counter(Ymtr_predict)[yi]))
     ax.grid(False)
-    if yi == 1:
-        plt.title("DTW Mtr $k$-means")
+
         
 plt.tight_layout()
 plt.savefig(args.output_file_prefix+'_clustering.png',dpi=200)
