@@ -101,8 +101,7 @@ t = t_label
 t /= np.mean(np.diff(t))
 
 # Plot
-os.chdir(args.output_path_dir)
-plt.figure(figsize=(20,20))
+plt.figure(figsize=(8,8))
 # The cols and rows of the subplot 
 subplots = int(math.sqrt(args.optimal_K))+1
 for yi in range(args.optimal_K):
