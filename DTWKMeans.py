@@ -56,11 +56,11 @@ args = parser.parse_args()
 
 ##########################################################################################
 exp_df = pd.read_csv(args.gene_expression_matrix,sep="\t",index_col='gene')
-MTRinput_df = pd.read_csv(args.gene_expression_matrix,sep='\t',index_col='gene')
-MTR_arr = MTRinput_df.values
-print('Input Gene Expression Matrix has {} entries with {} time points'.format(MTR_arr.shape[0],MTR_arr.shape[1]))
+GEMinput_df = pd.read_csv(args.gene_expression_matrix,sep='\t',index_col='gene')
+GEM_arr = GEMinput_df.values
+print('Input Gene Expression Matrix has {} entries with {} time points'.format(GEM_arr.shape[0],GEM_arr.shape[1]))
 # Normalization with standard scaler
-gene_expression_matrix = MTR_arr
+gene_expression_matrix = GEM_arr
 gene_expression_matrix -= np.vstack(np.nanmean(gene_expression_matrix, axis=1))
 gene_expression_matrix /= np.vstack(np.nanstd(gene_expression_matrix, axis=1))
 
@@ -77,7 +77,7 @@ os.chdir(args.output_path_dir)
 
 # Print out the cluster result output
 df_label = pd.DataFrame()
-df_label['gene'] = MTRinput_df.index
+df_label['gene'] = GEMinput_df.index
 df_label['cluster'] = dtw_Ymtr.labels_+1
 df_label.to_csv(args.output_file_prefix+"_ClusteringResults.csv")
 
@@ -96,7 +96,7 @@ df_sum.to_csv(args.output_file_prefix+"_ClusteringSummary.csv")
 
 
 # Time Set for plotting
-t_label = list(map(int,MTRinput_df.columns.tolist()))
+t_label = list(map(int,GEMinput_df.columns.tolist()))
 t = t_label
 t /= np.mean(np.diff(t))
 
